@@ -49,6 +49,11 @@ local function releaseIcon(group, id)
 	table.insert(inactiveIcons, icon)
 end
 
+-- Sort timers by time left
+local function sortTimers(a, b)
+	return a.endTime < b.endTime
+end
+
 -- Update icon timer
 local function OnUpdate(self, elapsed)
 	local time = GetTime()
@@ -59,7 +64,7 @@ local function OnUpdate(self, elapsed)
 		-- Check if we should start the timer again
 		if( self.repeating ) then
 			self.timeLeft = self.startSeconds
-			-- self.lastUpdate = time
+			self.lastUpdate = time
 			
 			local anchor = Icons.groups[self.type]
 			table.sort(anchor.active, sortTimers)
@@ -122,10 +127,7 @@ local function getIcon(group)
 	return icon
 end
 
--- Sort timers by time left
-local function sortTimers(a, b)
-	return a.endTime < b.endTime
-end
+
 
 -- Dragging functions
 local function OnDragStart(self)
