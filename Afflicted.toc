@@ -1,0 +1,26 @@
+## Interface: 11302
+## Title: Afflicted
+## Notes: PvP timer and cooldown tracking mod
+## Author: Shadowed
+## Version: v3.0.1
+## SavedVariables: AfflictedDB
+
+
+libs.xml
+
+localization\enUS.lua
+localization\deDE.lua
+localization\esES.lua
+localization\esMX.lua
+localization\frFR.lua
+localization\koKR.lua
+localization\ruRU.lua
+localization\zhCN.lua
+localization\zhTW.lua
+localization\categories.lua
+
+Afflicted.lua
+spells.lua
+config.lua
+bars.lua
+icons.lua
