@@ -294,7 +294,10 @@ end
 -- Reset spells
 function Afflicted:ResetCooldowns(sourceGUID, resets, spellData)
 	for _, spellID in pairs(resets) do
+		local spellData = Afflicted.spells[spellID]
+        if( spellData and spellData.cdAnchor ) then
 		self[self.db.profile.anchors[spellData.cdAnchor].display]:RemoveTimerByID(sourceGUID .. spellID .. "CD")
+		end
 	end
 end
 
@@ -334,13 +337,14 @@ end
 
 -- Spell faded early, so announce that
 function Afflicted:AbilityEarlyFade(sourceGUID, sourceName, spellData, spellID, spellName, announce)
-if( spellData and not spellData.disabled and spellData.type == "buff") then
-	local removed = self[self.db.profile.anchors[spellData.anchor].display]:RemoveTimerByID(sourceGUID .. spellID)
-	if( removed and announce ) then
-		-- self:Announce(spellData, self.db.profile.anchors[spellData.anchor], "endMessage", spellID, spellName, sourceName)
+	if( spellData and not spellData.disabled and spellData.type == "buff") then
+        if( spellData and spellData.anchor ) then
+		local removed = self[self.db.profile.anchors[spellData.anchor].display]:RemoveTimerByID(sourceGUID .. spellID)
+			self:Announce(spellData, self.db.profile.anchors[spellData.anchor], "endMessage", spellID, spellName, sourceName)
+		end
 	end
 end
- end
+
 
 -- Timer faded naturally
 function Afflicted:AbilityEnded(sourceGUID, sourceName, spellData, spellID, spellName, isCooldown)
