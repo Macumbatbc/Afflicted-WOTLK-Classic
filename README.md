@@ -15,11 +15,15 @@ https://www.curseforge.com/wow/addons/afflicted3
 - Icons and Bars mode
 - Announce what spell is used and when it's up
 
+![image](https://user-images.githubusercontent.com/85767653/158212715-d7aac821-2403-4a57-8083-d70abd11f61e.png)
+
+![image](https://user-images.githubusercontent.com/85767653/158212807-d702611f-a3ee-4e42-9fd7-31ad74be878e.png)
+
+![image](https://user-images.githubusercontent.com/85767653/158213771-5ec98e8c-90f5-4b87-927f-6f15f1cd00a0.png)
+
 
 # how to install
 Download the file and extract it. rename the folder and delete -master
-
-
 
 
 # For more addons and such questions 
@@ -32,7 +36,6 @@ The list of the addons i have modified :
 https://github.com/Macumbatbc/My-Addons-list
 
  
-
 # Support
 
 https://www.paypal.me/macumbafeh
