@@ -74,7 +74,7 @@ function AfflictedSpells:GetData()
 		-- Cold Blood
 		[14177] = "{cooldown=180;cdDisabled=true;cdAnchor='cooldowns';class='ROGUE';}",
 		-- Preparation
-		[14185] = "{cooldown=600;cdDisabled=false;cdAnchor='cooldowns';resets={26669,11305,26889,14177,36554,14183};class='ROGUE';}",
+		[14185] = "{cooldown=600;cdAnchor='cooldowns';resets={26669,11305,26889,14177,36554,14183};class='ROGUE';}",
 		-- Vanish
 		[1856] = 26889,
 		[1857] = 26889,
