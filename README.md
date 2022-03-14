@@ -14,7 +14,7 @@ https://www.curseforge.com/wow/addons/afflicted3
 - Tracks Totems timers also, which show timers of totems and show the tick of some totems (Tremor, fire totems...)
 - Icons and Bars mode
 - Announce what spell is used and when it's up
-
+- You sort all your tracks Spells/CD on 6 Anchors : Damage, Defensive, Interrupts, Cooldowns, Spells, Buffs.
 ![image](https://user-images.githubusercontent.com/85767653/158212715-d7aac821-2403-4a57-8083-d70abd11f61e.png)
 
 ![image](https://user-images.githubusercontent.com/85767653/158212807-d702611f-a3ee-4e42-9fd7-31ad74be878e.png)
