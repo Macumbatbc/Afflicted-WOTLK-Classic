@@ -6,6 +6,9 @@ Alerts for when a spell is triggered (or ends), as well as when you interrupt or
 
 Slash command: /afflicted
 
+Thanks Xyz for all the help to fix this addon !
+
+
 # Original version
 https://www.curseforge.com/wow/addons/afflicted3
 
