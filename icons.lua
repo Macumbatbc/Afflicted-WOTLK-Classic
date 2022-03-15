@@ -6,6 +6,7 @@ local POSITION_SIZE = ICON_SIZE + 2
 local methods = {"CreateDisplay", "ClearTimers", "CreateTimer", "RemoveTimerByID", "UnitDied", "ReloadVisual"}
 local savedGroups = {}
 local inactiveIcons = {}
+local table_sort = table.sort							 
 
 function Icons:OnInitialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -67,7 +68,9 @@ local function OnUpdate(self, elapsed)
 			self.lastUpdate = time
 			
 			local anchor = Icons.groups[self.type]
-			table.sort(anchor.active, sortTimers)
+			table_sort(anchor.active, function(a, b)
+  				return a.endTime < b.endTime
+			end)
 			repositionTimers(anchor)
 			return
 		end
