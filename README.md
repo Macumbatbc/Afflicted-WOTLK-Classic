@@ -4,7 +4,8 @@ Afflicted is an enemy spell timer mod for PvP (mainly arenas). This is for peopl
 
 Alerts for when a spell is triggered (or ends), as well as when you interrupt or dispel an enemy are included. All alerts can be shown inside party, raid, raid warning, combat text or a specified chat frame.
 
-Slash command: /afflicted
+Slash command: /afflicted ui
+
 
 Thanks Xyz for all the help to fix this addon !
 
