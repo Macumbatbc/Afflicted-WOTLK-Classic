@@ -338,10 +338,11 @@ end
 function Afflicted:AbilityEarlyFade(sourceGUID, sourceName, spellData, spellID, spellName, announce)
 	if( spellData and not spellData.disabled and spellData.type == "buff" and spellData.anchor) then
 		local removed = self[self.db.profile.anchors[spellData.anchor].display]:RemoveTimerByID(sourceGUID .. spellID)
-			self:Announce(spellData, self.db.profile.anchors[spellData.anchor], "endMessage", spellID, spellName, sourceName)
-		end
+		-- if( removed and announce ) then	
+		self:Announce(spellData, self.db.profile.anchors[spellData.anchor], "endMessage", spellID, spellName, sourceName)
 	end
 end
+
 
 
 -- Timer faded naturally
