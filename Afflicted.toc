@@ -1,7 +1,7 @@
-## Interface: 11302
+## Interface: 30400
 ## Title: Afflicted
 ## Notes: PvP timer and cooldown tracking mod
-## Author: Shadowed
+## Author: Shadowed, modified by Macumba
 ## Version: v3.0.1
 ## SavedVariables: AfflictedDB
 
