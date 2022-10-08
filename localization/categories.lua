@@ -15,4 +15,5 @@ L.classes = {
 	["SHAMAN"] = L["Shaman"],
 	["WARLOCK"] = L["Warlock"],
 	["WARRIOR"] = L["Warrior"],
+	["DEATHKNIGHT"] = L["DEATHKNIGHT"],
 }
