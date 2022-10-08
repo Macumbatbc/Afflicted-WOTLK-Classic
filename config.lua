@@ -1251,6 +1251,13 @@ local function loadOptions()
 			}
 		end
 	end
+
+	options.args.spellcats.args["DEATHKNIGHT"] = {
+		type = "group",
+		order = 2,
+		name = L.classes["DEATHKNIGHT"],
+		args = {},
+	}
 	
 	-- Open a specific spell
 	local timerFrame
@@ -1274,7 +1281,7 @@ local function loadOptions()
 	local totalAdded = {}
 	local function createCatSpell(index, spell, spellID, spellName, category)
 		totalAdded[category] = (totalAdded[category] or 0) + 1
-		
+
 		options.args.spellcats.args[category].args[tostring(index)] = {
 			order = 1,
 			type = "execute",
