@@ -16,7 +16,7 @@ https://www.curseforge.com/wow/addons/afflicted3
 # Know Bug
 There is a weird bug when you add some spells in the code, they doesn't appear ingame and are not tracked.
 So you need to :
-- close the game and go into : World of Warcraftclassic\WTF\Account"account_number"\SavedVariables
+- close the game and go into : World of Warcraftclassic\WTF\Account\"account_number"\SavedVariables
 - Delete all Afflicted files.
 - Launch the game.
 Then the new spells will appear. But it will reset the addon, so remove your settings unfort...
