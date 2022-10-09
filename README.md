@@ -13,6 +13,14 @@ Thanks Xyz for all the help to fix this addon !
 # Original version
 https://www.curseforge.com/wow/addons/afflicted3
 
+# Know Bug
+There is a weird bug when you add some spells in the code, they doesn't appear ingame and are not tracked.
+So you need to :
+- close the game and go into : World of Warcraftclassic\WTF\Account"account_number"\SavedVariables
+- Delete all Afflicted files.
+- Launch the game.
+Then the new spells will appear. But it will reset the addon, so remove your settings unfort...
+
 # Features
 - Tracks CD and Buff Timers
 - Tracks Totems timers also, which show timers of totems and show the tick of some totems (Tremor, fire totems...)
