@@ -1,5 +1,5 @@
 local Afflicted = select(2, ...)
-Afflicted.modules.Spells = {version = 16}
+Afflicted.modules.Spells = {version = 17}
 local Spells = Afflicted.modules.Spells
 
 
