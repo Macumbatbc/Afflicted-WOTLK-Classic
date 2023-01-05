@@ -236,16 +236,16 @@ function Spells:GetData()
 		-- Will to Survive
 		[59752] = "{cooldown=120;cdAnchor='defenses';}",
 		-- PvP Trinket
-		[42292] = 51377,
-		[51378] = 51377,
-		[42124] = 51377,
-		[42126] = 51377,
-		[42123] = 51377,
-		[42122] = 51377,
-		[46081] = 51377,
-		[46084] = 51377,
-		[46082] = 51377,
-		[51377] = "{cooldown=120;cdAnchor='defenses';}",
+		[42292] = 42123,
+		[51378] = 42123,
+		[42124] = 42123,
+		[42126] = 42123,
+		[51377] = 42123,
+		[42122] = 42123,
+		[46081] = 42123,
+		[46084] = 42123,
+		[46082] = 42123,
+		[42123] = "{cooldown=120;cdAnchor='defenses';}",
 		-- Escape Artist
 		[20589] = "{cooldown=105;cdAnchor='defenses';}",
 		-- Will of the Forsaken
