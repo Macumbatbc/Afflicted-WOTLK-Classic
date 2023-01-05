@@ -140,4 +140,5 @@ L["WARRIOR"] = "战士"
 L["Width"] = "宽"
 L["You have to choose which anchor spells should be moved to when this one is deleted."] = "当这个锚点被删除后你必须选择一个法术要移动到的锚点."
 
-AfflictedLocals = setmetatable(L, {__index = AfflictedLocals})
+local Afflicted = select(2, ...)
+Afflicted.L = setmetatable(L, {__index = Afflicted.L})

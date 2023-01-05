@@ -2,9 +2,9 @@
 ## Title: Afflicted
 ## Notes: PvP timer and cooldown tracking mod
 ## Author: Shadowed, modified by Macumba
-## Version: v3.0.1
+## Version: v3.0.2
+## OptionalDeps: Ace3, LibSharedMedia-3.0
 ## SavedVariables: AfflictedDB
-
 
 libs.xml
 
@@ -20,6 +20,7 @@ localization\zhTW.lua
 localization\categories.lua
 
 Afflicted.lua
+GTB.lua
 spells.lua
 config.lua
 bars.lua

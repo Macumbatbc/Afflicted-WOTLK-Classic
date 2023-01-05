@@ -115,4 +115,5 @@ L["WARRIOR"] = "전사"
 L["Width"] = "너비"
 L["You have to choose which anchor spells should be moved to when this one is deleted."] = "이 중에 하나를 삭제한 경우에 이동시켜야 할 주문의 앵커를 선택해야 합니다. "
 
-AfflictedLocals = setmetatable(L, {__index = AfflictedLocals})
+local Afflicted = select(2, ...)
+Afflicted.L = setmetatable(L, {__index = Afflicted.L})

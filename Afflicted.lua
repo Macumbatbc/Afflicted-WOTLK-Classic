@@ -2,9 +2,10 @@
 	Afflicted 3, Shadow of US-Mal'Ganis
 ]]
 
-Afflicted = LibStub("AceAddon-3.0"):NewAddon("Afflicted", "AceEvent-3.0")
+Afflicted = select(2, ...)
+Afflicted.modules = {}
 
-local L = AfflictedLocals
+local L = Afflicted.L
 local instanceType, arenaBracket
 local summonedTotems = {}
 local summonedObjects = {}
@@ -14,7 +15,7 @@ function Afflicted:OnInitialize()
 		profile = {
 			showAnchors = true,
 			showIcons = true,
-                        hostileOnly = true,
+			hostileOnly = true,
 			targetOnly = false,
 			cooldownMessage = L["READY *spell (*target)"],
 			barWidth = 180,
@@ -96,20 +97,20 @@ function Afflicted:OnInitialize()
  
 	
 	-- Load spell database
-	local spells = AfflictedSpells:GetData()
+	local spells = Afflicted.modules.Spells:GetData()
 
 	-- Fresh DB, copy it all in
 	if( self.db.profile.spellVersion == 0 ) then
-		self.db.profile.spellVersion = AfflictedSpells.version
+		self.db.profile.spellVersion = Afflicted.modules.Spells.version
 		self.db.profile.spells = CopyTable(spells)
 		
 	-- Spell database changed
-	elseif( self.db.profile.spellVersion < AfflictedSpells.version ) then
-		self.db.profile.spellVersion = AfflictedSpells.version
+	elseif( self.db.profile.spellVersion < Afflicted.modules.Spells.version ) then
+		self.db.profile.spellVersion = Afflicted.modules.Spells.version
 		
 		-- Remove old spells
 		for spellID in pairs(self.db.profile.spells) do
-			currentSpellName, _ = GetSpellInfo(spellID)
+			local currentSpellName, _ = GetSpellInfo(spellID)
 			if( type(spellID) == "number" and currentSpellName == nil ) then
 				self.db.profile.spells[spellID] = nil
 			end
@@ -146,8 +147,15 @@ function Afflicted:OnInitialize()
 	self.bars = self.modules.Bars:LoadVisual()
 	self.icons = self.modules.Icons:LoadVisual()
 	
-	self:RegisterEvent("PLAYER_ENTERING_WORLD", "ZONE_CHANGED_NEW_AREA")
-	self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	self.frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self.frame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+end
+
+function Afflicted:PLAYER_ENTERING_WORLD()
+	self.modules.Bars:RegisterWithSML()
+	self.modules.Icons:FixScalingBug()
+	self.frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	self:ZONE_CHANGED_NEW_AREA()
 end
 
 -- Quick function to get the linked spells easily and such
@@ -176,8 +184,10 @@ end
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local COMBATLOG_FILTER_HOSTILE_PLAYERS = COMBATLOG_FILTER_HOSTILE_PLAYERS
+local COMBATLOG_FILTER_MINE = COMBATLOG_FILTER_MINE
+local COMBATLOG_FILTER_HOSTILE_PLAYERS = COMBATLOG_FILTER_HOSTILE_PLAYERS
 
-local eventRegistered = {SPELL_AURA_APPLIED = true, SPELL_CAST_SUCCESS = true, SPELL_CREATE = true, SPELL_SUMMON = true, SPELL_AURA_REMOVED = true, PARTY_KILL = true, UNIT_DIED = true, SWING_DAMAGE = true, SPELL_CAST_DAMAGE = true, SPELL_DAMAGE = true, SPELL_PERIODIC_DAMAGE = true, SPELL_ENERGIZE = true, UNIT_DESTROYED = true}
+local eventRegistered = {SPELL_AURA_APPLIED = true, SPELL_CAST_SUCCESS = true, SPELL_CREATE = true, SPELL_SUMMON = true, SPELL_AURA_REMOVED = true, PARTY_KILL = true, UNIT_DIED = true, SWING_DAMAGE = true, SPELL_DAMAGE = true, SPELL_PERIODIC_DAMAGE = true, SPELL_ENERGIZE = true, UNIT_DESTROYED = true}
 
 function Afflicted:COMBAT_LOG_EVENT_UNFILTERED(event)
 	local _, eventType, _, sourceGUID, sourceName, sourceFlags, _, destGUID, destName, destFlags, _, spellID, spellName, _, auraType = CombatLogGetCurrentEventInfo()
@@ -188,9 +198,8 @@ function Afflicted:COMBAT_LOG_EVENT_UNFILTERED(event)
 
 	local sourceEnemy = CombatLog_Object_IsA(sourceFlags, COMBATLOG_FILTER_HOSTILE_PLAYERS)
 	local destEnemy = CombatLog_Object_IsA(destFlags, COMBATLOG_FILTER_HOSTILE_PLAYERS)
-	local isPlayer = bit.band(destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) == COMBATLOG_OBJECT_TYPE_PLAYER or bit.band(destFlags, COMBATLOG_OBJECT_CONTROL_PLAYER) == COMBATLOG_OBJECT_CONTROL_PLAYER
-	local isaEnemy = bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE
-     
+	local isaEnemy = CombatLog_Object_IsA(destFlags, COMBATLOG_FILTER_HOSTILE_PLAYERS)
+
 	-- Enemy buff faded
 	if (eventType == "SPELL_AURA_REMOVED" and (not self.db.profile.hostileOnly or sourceEnemy)) then
 		local spell = self:GetSpell(spellID, spellName)
@@ -215,7 +224,7 @@ function Afflicted:COMBAT_LOG_EVENT_UNFILTERED(event)
 	-- Check for something being summoned (Pets, totems)
 	elseif (eventType == "SPELL_SUMMON" and (not self.db.profile.hostileOnly or sourceEnemy)) then
 		-- Fixes an issue with totems not being removed when they get redropped
-		local id = sourceGUID .. (AfflictedSpells:GetTotemClass(spellName) or spellName)
+		local id = sourceGUID .. (Afflicted.modules.Spells:GetTotemClass(spellName) or spellName)
 		local spell = self:GetSpell(spellID, spellName)
 		if( spell and spell.type == "totem" ) then
 			-- We already had a totem of this timer up, remove the previous one first
@@ -243,13 +252,11 @@ function Afflicted:COMBAT_LOG_EVENT_UNFILTERED(event)
 			self:AbilityTriggered(sourceGUID, sourceName, spell, spellID)
 		end	
 		
-	elseif ( eventType == "SPELL_ENERGIZE" ) and isaEnemy and isPlayer and (spellName == "Appel totémique") or (spellName == "Totemic Call") then
+	elseif ( eventType == "SPELL_ENERGIZE" ) and isaEnemy and spellID == 39104 then
 			-- If the player has any totems, kill them off with the player
 			self.bars:UnitDied(destGUID)
 			self.icons:UnitDied(destGUID)
-		
-		
-		
+
 	elseif (eventType == "UNIT_DESTROYED" and (not self.db.profile.hostileOnly or destEnemy)) then
 		if( summonedObjects[destGUID] ) then
 			self.bars:RemoveTimerByID(summonedObjects[destGUID])
@@ -257,7 +264,7 @@ function Afflicted:COMBAT_LOG_EVENT_UNFILTERED(event)
 			return
 		end
 	
-	elseif (eventType == "SWING_DAMAGE") or (eventType == "SPELL_CAST_DAMAGE") or (eventType == "SPELL_DAMAGE") or (eventType == "SPELL_PERIODIC_DAMAGE") and not self.db.profile.hostileOnly or destEnemy  then
+	elseif (eventType == "SWING_DAMAGE") or (eventType == "SPELL_CAST_SUCCESS") or (eventType == "SPELL_DAMAGE") or (eventType == "SPELL_PERIODIC_DAMAGE") and not self.db.profile.hostileOnly or destEnemy  then
 			-- If this is a summoned object (trap/totem) that was specifically killed, remove its timer
 			if( summonedObjects[destGUID] ) then
 			self.bars:RemoveTimerByID(summonedObjects[destGUID])
@@ -446,7 +453,7 @@ end
 function Afflicted:UPDATE_BATTLEFIELD_STATUS()
 	self:SaveArenaBracket()
 	if( arenaBracket ) then
-		self:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
+		self.frame:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
 	end
 end
 
@@ -477,10 +484,10 @@ function Afflicted:ZONE_CHANGED_NEW_AREA()
 			for k in pairs(summonedObjects) do summonedObjects[k] = nil end
 			for k in pairs(summonedTotems) do summonedTotems[k] = nil end
 
-			self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+			self.frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 		else
-			self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-			self:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
+			self.frame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+			self.frame:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
 		end
 	end
 	
@@ -535,10 +542,10 @@ function Afflicted:SendMessage(msg, dest, color, spellID)
 	if( dest == "none" ) then
 		return
 	-- We're undergrouped, so redirect it to our fake alert frame
-	elseif( dest == "rw" and GetNumRaidMembers() == 0 and GetNumPartyMembers() == 0 ) then
+	elseif( dest == "rw" and GetNumGroupMembers() == 0 ) then
 		dest = "rwframe"
 	-- We're grouped, in a raid and not leader or assist
-	elseif( dest == "rw" and not IsRaidLeader() and not IsRaidOfficer() and GetNumRaidMembers() > 0 ) then
+	elseif( dest == "rw" and not UnitIsGroupLeader() and not UnitIsGroupAssistant() and GetNumGroupMembers() > 0 ) then
 		dest = "party"
 	end
 	
@@ -669,3 +676,15 @@ function Afflicted:HelpFrame()
 	
 	self.helpFrame = frame
 end
+
+-- Dispatcher
+Afflicted.frame = CreateFrame("Frame")
+Afflicted.frame:RegisterEvent("PLAYER_LOGIN")
+Afflicted.frame:SetScript("OnEvent", function(self, event, ...)
+	if( event == "PLAYER_LOGIN" ) then
+		Afflicted:OnInitialize()
+		self:UnregisterEvent("PLAYER_LOGIN")
+	else
+		Afflicted[event](Afflicted, event, ...)
+	end
+end)

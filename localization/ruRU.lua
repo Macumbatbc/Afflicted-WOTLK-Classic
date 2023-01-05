@@ -154,4 +154,5 @@ L["WARRIOR"] = "Воин"
 L["Width"] = "Ширина"
 L["You have to choose which anchor spells should be moved to when this one is deleted."] = "Выберите якорь, на который должны быть перемещены заклинания при удалении этого якоря."
 
-AfflictedLocals = setmetatable(L, {__index = AfflictedLocals})
+local Afflicted = select(2, ...)
+Afflicted.L = setmetatable(L, {__index = Afflicted.L})

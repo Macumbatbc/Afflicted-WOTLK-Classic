@@ -1,3 +1,4 @@
+local Afflicted = select(2, ...)
 local L = {}
 L["- clear - Clears all running timers."] = "- clear - Clears all running timers."
 L["- test - Shows test timers in Afflicted."] = "- test - Shows test timers in Afflicted."
@@ -198,13 +199,4 @@ L["You cannot delete a spell that is included with Afflicted by default, you wil
 L["You cannot delete anchors that are included with Afflicted by default, you will need to disable it if you don't want to use the anchor."] = "You cannot delete anchors that are included with Afflicted by default, you will need to disable it if you don't want to use the anchor."
 L["You have to choose which anchor spells should be moved to when this one is deleted."] = "You have to choose which anchor spells should be moved to when this one is deleted."
 
-
-AfflictedLocals = L
---[===[@debug@
-AfflictedLocals = setmetatable(AfflictedLocals, {
-	__index = function(tbl, value)
-		rawset(tbl, value, value)
-		return value
-	end,
-})
---@end-debug@]===]
+Afflicted.L = L

@@ -1,4 +1,5 @@
-local L = AfflictedLocals
+local Afflicted = select(2, ...)
+local L = Afflicted.L
 L.spells = {
 	["feral"] = L["Feral Charge"],
 	["fire"] = L["Fire traps"],

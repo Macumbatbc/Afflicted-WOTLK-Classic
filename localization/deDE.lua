@@ -95,4 +95,5 @@ L["WARLOCK"] = "Hexenmeister"
 L["WARRIOR"] = "Krieger"
 L["Width"] = "Breite"
 
-AfflictedLocals = setmetatable(L, {__index = AfflictedLocals})
+local Afflicted = select(2, ...)
+Afflicted.L = setmetatable(L, {__index = Afflicted.L})

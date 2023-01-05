@@ -1,13 +1,15 @@
-if( not Afflicted ) then return end
+local Afflicted = select(2, ...)
+Afflicted.modules.Bars = {}
 
-local Bars = Afflicted:NewModule("Bars", "AceEvent-3.0")
+
+local Bars = Afflicted.modules.Bars
 local methods = {"CreateDisplay", "ClearTimers", "CreateTimer", "RemoveTimerByID", "ReloadVisual", "UnitDied"}
 local SML = LibStub:GetLibrary("LibSharedMedia-3.0")
-local GTB = LibStub:GetLibrary("GTB-1.0")
+local GTB = Afflicted.modules.GTB
 local barData, savedGroups = {}, {}
 
-function Bars:OnInitialize()
-	SML.RegisterCallback(Bars, "LibSharedMedia_Registered", "MediaRegistered")
+function Bars:RegisterWithSML()
+	SML:RegisterCallback("LibSharedMedia_Registered", function(...) Bars:MediaRegistered(...) end)
 	SML:Register(SML.MediaType.STATUSBAR, "BantoBar", "Interface\\AddOns\\Afflicted\\media\\textures\\banto")
 	SML:Register(SML.MediaType.STATUSBAR, "Smooth",   "Interface\\AddOns\\Afflicted\\media\\textures\\smooth")
 	SML:Register(SML.MediaType.STATUSBAR, "Perl",     "Interface\\AddOns\\Afflicted\\media\\textures\\perl")

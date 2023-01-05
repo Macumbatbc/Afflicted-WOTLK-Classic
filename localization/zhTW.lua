@@ -153,4 +153,5 @@ L["WARRIOR"] = "戰士"
 L["Width"] = "寬度"
 L["You have to choose which anchor spells should be moved to when this one is deleted."] = "你必須選擇將移動至哪個群組當此群組將被刪除。"
 
-AfflictedLocals = setmetatable(L, {__index = AfflictedLocals})
+local Afflicted = select(2, ...)
+Afflicted.L = setmetatable(L, {__index = Afflicted.L})

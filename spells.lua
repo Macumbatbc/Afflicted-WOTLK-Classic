@@ -1,7 +1,9 @@
-AfflictedSpells = {}
-AfflictedSpells.version = 15
+local Afflicted = select(2, ...)
+Afflicted.modules.Spells = {version = 16}
+local Spells = Afflicted.modules.Spells
 
-function AfflictedSpells:GetData()
+
+function Spells:GetData()
 	if( self.spells ) then
 		return self.spells
 	end
@@ -238,12 +240,11 @@ function AfflictedSpells:GetData()
 
 	return self.spells
 end
-
-function AfflictedSpells:Verify()
-	AfflictedSpells:GetData()
-
+function Spells:Verify()
+	Spells:GetData()
+	
 	print("Verifying Afflicted database.")
-
+	
 	local found
 	for id, data in pairs(self.spells) do
 		if( not GetSpellInfo(id) ) then
@@ -260,9 +261,9 @@ function AfflictedSpells:Verify()
 				print(string.format("[%s] = %s", id, error))
 				found = true
 			end
-
+			
 			tbl = tbl()
-
+			
 			if( not tbl.class ) then
 				print(string.format("No class tag found on %s.", id))
 				found = true
@@ -275,7 +276,7 @@ function AfflictedSpells:Verify()
 	end
 end
 
-function AfflictedSpells:GetTotemClass(spellName)
+function Spells:GetTotemClass(spellName)
 	if( not self.totems ) then
 		self.totems = {
 			[GetSpellInfo(8227)] = "fire",

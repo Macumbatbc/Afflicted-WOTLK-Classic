@@ -1,4 +1,5 @@
 if( GetLocale() ~= "esES" ) then return end
 local L = {}
 
-AfflictedLocals = setmetatable(L, {__index = AfflictedLocals})
+local Afflicted = select(2, ...)
+Afflicted.L = setmetatable(L, {__index = Afflicted.L})
