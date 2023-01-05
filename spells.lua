@@ -137,7 +137,7 @@ function Spells:GetData()
 		-- Bloodlust
 		[2825] = "{type='buff';duration=40;anchor='damage';cooldown=300;cdDisabled=true;cdAnchor='cooldowns';class='SHAMAN';}",
 		-- Tremor Totem
-		[8143] = "{type='totem';disabled=true;duration=5;anchor='buffs';repeating=true;class='SHAMAN';}",
+		[8143] = "{type='totem';disabled=true;duration=3;anchor='buffs';repeating=true;class='SHAMAN';}",
 		-- Shamanistic Rage
 		[30823] = "{disabled=true;duration=15;anchor='defenses';cooldown=60;cdDisabled=true;cdAnchor='cooldowns';class='SHAMAN';}",
 		-- Mana Tide Totem
@@ -210,7 +210,8 @@ function Spells:GetData()
 		[1766] = "{cooldown=10;cdAnchor='interrupts';class='ROGUE';}",
 		-- Kidney Shot
 		[8643] = "{cooldown=20;cdAnchor='spells';class='ROGUE';}",
-		--[51713] = "{duration=10;anchor='damage';cooldown=120;cdDisabled=true;cdAnchor='cooldowns';class='ROGUE';}",
+		-- Shadow Dance
+		[51713] = "{duration=8;anchor='damage';cooldown=60;cdDisabled=true;cdAnchor='cooldowns';class='ROGUE';}",
 		-- Shadow Step
 		[36554] = "{disabled=true;duration=3;anchor='buffs';cooldown=30;cdAnchor='cooldowns';class='ROGUE';}",
 		-- Adrenaline Rush
@@ -229,7 +230,7 @@ function Spells:GetData()
 		[2094] = "{cooldown=120;cdAnchor='cooldowns';class='ROGUE';}",
 		-- Dismantle
 		[51722] = "{cooldown=60;cdDisabled=true;cdAnchor='cooldowns';class='ROGUE';}",
-
+		
 		-- Misc
 		-- PvP Trinket
 		[59752] = 42292,
