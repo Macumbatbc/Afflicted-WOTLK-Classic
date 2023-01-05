@@ -231,12 +231,37 @@ function Spells:GetData()
 		-- Dismantle
 		[51722] = "{cooldown=60;cdDisabled=true;cdAnchor='cooldowns';class='ROGUE';}",
 		
+
 		-- Misc
-		-- PvP Trinket
+		-- PvP Trinket and Will to Survive
 		[59752] = 42292,
-		[42292] = "{cooldown=120;cdAnchor='defenses'}",
+		[42292] = "{cooldown=120;cdAnchor='defenses';}",
 		-- Escape Artist
-		[20589] = "{cooldown=105;cdAnchor='defenses'}",
+		[20589] = "{cooldown=105;cdAnchor='defenses';}",
+		-- Will of the Forsaken
+		[7744] = "{type='buff';duration=5;cooldown=120;cdAnchor='defenses';}",
+		-- Stoneform
+		[20594] = "{type='buff';duration=8;cooldown=180;cdAnchor='defenses';}",
+		-- War Stomp
+		[20549] = "{type='buff';duration=2;cooldown=120;cdAnchor='defenses';}",
+		-- Arcane Torrent
+		[28730] = "{type='buff';duration=2;cooldown=120;cdAnchor='defenses';}",
+		-- Bauble of True Blood
+		[71646] = 71607,
+		[71607] = "{disabled=true;cdDisabled=false;cooldown=120;cdAnchor='defenses'}",
+		
+		
+		--[[ TRINKETS ]]--
+	-- Tremendous Fortitude
+	[44055] = "{type='buff';duration=15;anchor='buffs';cooldown=180;cdAnchor='cooldowns';}",
+	-- Berserker's Call
+	[43716] = "{type='buff';duration=20;anchor='buffs';cooldown=120;cdAnchor='cooldowns';}",
+	-- Bloodlust Brooch
+	[35166] = "{type='buff';duration=20;anchor='buffs';cooldown=120;cdAnchor='cooldowns';}",
+	-- The Skull of Gul'dan
+	[40396] = "{type='buff';duration=20;anchor='buffs';cooldown=120;cdAnchor='cooldowns';}",
+	-- Figurine - Shadowsong Panther
+	[46784] = "{type='buff';duration=15;anchor='buffs';cooldown=90;cdAnchor='cooldowns';}",
 	}
 
 	return self.spells
